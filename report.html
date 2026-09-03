@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report an Issue | Sort It</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a class="brand" href="index.html"><span class="brand-icon">SI</span><span><strong>Sort It</strong><small>Your Voice. Real Change.</small></span></a>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+    <nav id="mainNav">
+      <a class="nav-link" href="index.html#home">Home</a>
+      <a class="nav-link" href="index.html#issues">Issues</a>
+      <a class="nav-link" href="index.html#polls">Polls</a>
+      <a class="nav-link" href="index.html#how-it-works">How It Works</a>
+      <a class="nav-link" href="index.html#about">About Us</a>
+      <a class="nav-link" href="settings.html">Settings</a>
+    </nav>
+    <div class="nav-actions"><a class="btn btn-primary" href="report.html">Report an Issue</a></div>
+  </header>
+
+  <section class="report-hero">
+    <div><span class="eyebrow light">COMMUNITY REPORTING</span><h1>Report an Issue</h1><p>Help your community by reporting problems you face in daily life.</p></div>
+    <div class="report-symbol">＋</div>
+  </section>
+
+  <main class="form-shell">
+    <form id="issueForm" novalidate>
+      <div class="form-card">
+        <h2>Issue Details</h2>
+        <div class="form-grid two">
+          <label>Issue Title *<input name="title" maxlength="100" required placeholder="Briefly describe the issue in one line"></label>
+          <label>Category *<select name="category" required><option value="">Select a category</option><option>Roads</option><option>Water</option><option>Drainage</option><option>Electricity</option><option>Healthcare</option><option>Education</option><option>Government Services</option><option>Corruption</option><option>Sanitation</option><option>Public Safety</option><option>Other</option></select></label>
+        </div>
+        <label>Detailed Description *<textarea name="description" maxlength="1000" required placeholder="Explain the issue in detail..."></textarea><small class="counter"><span id="charCount">0</span>/1000</small></label>
+        <label>Location *<div class="location-row"><input name="location" id="location" required placeholder="Area / locality / landmark"><button type="button" class="btn btn-outline" id="locationBtn">◎ Use My Exact Location</button></div></label>
+        <label>Photo / Video Evidence <small>(optional, max 5 files)</small><input type="file" id="evidence" name="evidence" accept="image/*,video/*" multiple><div class="file-note" id="fileNote">Add photos or videos that help explain the issue.</div></label>
+        <div class="form-grid two">
+          <label>When did this happen?<input name="date" type="date"></label>
+          <fieldset><legend>Is this issue happening now?</legend><label class="radio"><input type="radio" name="ongoing" value="Yes" checked> Yes</label><label class="radio"><input type="radio" name="ongoing" value="No"> No</label></fieldset>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h2>Contact Information <small>(Optional)</small></h2>
+        <p class="muted">Your personal details will not be displayed publicly in this prototype.</p>
+        <div class="form-grid two">
+          <label>Your Name<input name="name" placeholder="Enter your name"></label>
+          <label>Mobile Number<input name="phone" inputmode="numeric" maxlength="15" placeholder="Enter your mobile number"></label>
+        </div>
+        <label class="check"><input type="checkbox" name="agreement" required> I agree to the <a href="#" onclick="return false">Community Guidelines</a> and understand that allegations are not automatically verified facts.</label>
+        <button class="btn btn-primary submit-btn" type="submit">✈ Submit Issue</button>
+        <div class="secure">🔒 Your identity and data are handled responsibly.</div>
+      </div>
+    </form>
+  </main>
+
+  <div class="modal hidden" id="successModal">
+    <div class="modal-card success">
+      <div class="success-icon">✓</div><h2>Issue submitted</h2>
+      <p>Your issue has been saved to the Sort It database.</p>
+      <a class="btn btn-primary full" href="index.html">Back to Home</a>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="js/script.js"></script>
+</body>
+</html>
