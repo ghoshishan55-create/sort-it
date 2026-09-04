@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Sort-it</title><link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="navbar">
+<a class="brand" href="index.html"><span class="brand-icon">SI</span><span><strong>Sort-it</strong><small>Admin Dashboard</small></span></a>
+<nav><a class="nav-link" href="index.html">Public Site</a><a class="nav-link active" href="admin.html">Admin</a><a class="nav-link" href="settings.html">Settings</a></nav>
+<div class="nav-actions"><button class="btn btn-outline" id="adminLogout">Log Out</button></div>
+</header>
+<main class="admin-shell">
+<section class="section-heading"><div><span class="eyebrow">ADMINISTRATION</span><h1>Issue Management</h1><p class="muted">Review reports and control which issues are marked resolved.</p></div></section>
+<div class="admin-stats" id="adminStats"></div>
+<div class="form-card">
+<div class="admin-toolbar"><h2>All reported issues</h2><button class="btn btn-outline" id="refreshAdmin">Refresh</button></div>
+<div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>ID</th><th>Issue</th><th>Category</th><th>Location</th><th>Support</th><th>Status</th><th>Action</th></tr></thead><tbody id="adminIssues"></tbody></table></div>
+<p class="muted" id="adminEmpty"></p>
+</div>
+</main>
+<div class="toast" id="toast"></div><script src="js/script.js"></script>
+<script>
+async function loadAdmin(){
+  try{
+    const me=await getMe();
+    if(!me||!me.isAdmin){location.href="index.html";return}
+    const [issues,stats]=await Promise.all([api("/admin/issues"),api("/stats")]);
+    document.getElementById("adminStats").innerHTML=[
+      ["Reported",stats.issuesReported],["Resolved",stats.issuesResolved],["Support/Votes",stats.votesCast],["Locations",stats.citiesCovered]
+    ].map(x=>`<div class="admin-stat"><strong>${Number(x[1]).toLocaleString()}</strong><span>${x[0]}</span></div>`).join("");
+    const body=document.getElementById("adminIssues");
+    body.innerHTML=issues.map(x=>`<tr><td>#${x.id}</td><td><strong>${escapeHTML(x.title)}</strong><small>${escapeHTML(x.description.slice(0,90))}</small></td><td>${escapeHTML(x.category)}</td><td>${escapeHTML(x.location)}</td><td>${Number(x.votes).toLocaleString()}</td><td><span class="status-badge ${x.status.toLowerCase()}">${escapeHTML(x.status)}</span></td><td><button class="btn ${x.status==="Resolved"?"btn-outline":"btn-primary"}" data-status="${x.id}" data-next="${x.status==="Resolved"?"Reported":"Resolved"}">${x.status==="Resolved"?"Reopen":"Mark Resolved"}</button></td></tr>`).join("");
+    document.getElementById("adminEmpty").textContent=issues.length?"":"No issues have been reported yet.";
+    body.querySelectorAll("[data-status]").forEach(btn=>btn.addEventListener("click",async()=>{
+      btn.disabled=true;
+      try{await api(`/admin/issues/${btn.dataset.status}/status`,{method:"PATCH",body:JSON.stringify({status:btn.dataset.next})});toast("Issue status updated.");loadAdmin();}
+      catch(e){toast(e.message);btn.disabled=false}
+    }));
+  }catch(e){toast(e.message);setTimeout(()=>location.href="index.html",900)}
+}
+document.getElementById("refreshAdmin").onclick=loadAdmin;
+document.getElementById("adminLogout").onclick=async()=>{await api("/auth/logout",{method:"POST"});location.href="index.html"};
+loadAdmin();
+</script>
+</body></html>

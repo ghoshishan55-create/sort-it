@@ -1,0 +1,7 @@
+node_modules/
+voicenation.db
+voicenation.db-shm
+voicenation.db-wal
+uploads/*
+!uploads/.gitkeep
+.env

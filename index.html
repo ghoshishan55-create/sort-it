@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sort-it | Your Voice. Real Issues. Real Change.</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a class="brand" href="index.html"><span class="brand-icon">SI</span><span><strong>Sort-it</strong><small>Your Voice. Real Change.</small></span></a>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Open menu">☰</button>
+    <nav id="mainNav">
+      <a class="nav-link active" href="#home">Home</a>
+      <a class="nav-link" href="#issues">Issues</a>
+      <a class="nav-link" href="#polls">Polls</a>
+      <a class="nav-link" href="#how-it-works">How It Works</a>
+      <a class="nav-link" href="#about">About Us</a>
+      <a class="nav-link" href="settings.html">Settings</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="Search">⌕</button>
+      <button class="btn btn-outline" id="loginBtn">Login</button>
+      <a class="btn btn-primary" href="report.html">Report an Issue</a>
+    </div>
+  </header>
+
+  <div class="search-panel hidden" id="searchPanel">
+    <input id="searchInput" type="search" placeholder="Search issues, categories or locations...">
+  </div>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-content">
+        <span class="eyebrow">CITIZEN POWER PLATFORM</span>
+        <h1>Your Problem.<br>Your Voice.<br><span>Real Change.</span></h1>
+        <p>Report the problems you face, vote on issues that matter, and help your community make its voice impossible to ignore.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="report.html">✈ Report an Issue</a>
+          <a class="btn btn-white btn-lg" href="#issues">☷ Explore Issues</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="city-card">
+          <div class="sun"></div>
+          <div class="skyline"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="road"></div>
+          <div class="tree t1">♣</div><div class="tree t2">♣</div><div class="tree t3">♣</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-wrap">
+      <div class="stat"><span class="stat-icon blue">↗</span><div><strong id="statReported">0</strong><small>Issues Reported</small></div></div>
+      <div class="stat"><span class="stat-icon green">●</span><div><strong id="statVoters">0</strong><small>Active Voters</small></div></div>
+      <div class="stat"><span class="stat-icon orange">✓</span><div><strong id="statResolved">0</strong><small>Issues Resolved</small></div></div>
+      <div class="stat"><span class="stat-icon purple">▥</span><div><strong id="statCities">0</strong><small>Cities Covered</small></div></div>
+    </section>
+
+    <section class="section" id="issues">
+      <div class="section-heading">
+        <div><span class="eyebrow">COMMUNITY VOICE</span><h2>Trending Issues</h2></div>
+        <button class="text-btn" id="clearSearch">View All Issues →</button>
+      </div>
+      <div class="filter-row">
+        <button class="filter active" data-filter="all">All</button>
+        <button class="filter" data-filter="Roads">Roads</button>
+        <button class="filter" data-filter="Water">Water</button>
+        <button class="filter" data-filter="Drainage">Drainage</button>
+        <button class="filter" data-filter="Electricity">Electricity</button><button class="filter" data-filter="Resolved">Resolved</button>
+      </div>
+      <div class="issue-grid" id="issueGrid"></div>
+      <p class="empty hidden" id="issueEmpty">No issues match your search.</p>
+    </section>
+
+    <section class="section soft" id="polls">
+      <div class="section-heading">
+        <div><span class="eyebrow">PUBLIC OPINION</span><h2>Active Polls</h2></div>
+      </div>
+      <div id="pollList"></div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="section-heading"><div><span class="eyebrow">THE PROCESS</span><h2>How It Works</h2></div></div>
+      <div class="steps">
+        <div class="step"><b>1</b><h3>Report</h3><p>Tell the community about a problem you are facing.</p></div>
+        <div class="step"><b>2</b><h3>Vote</h3><p>Support issues that affect you and your neighborhood.</p></div>
+        <div class="step"><b>3</b><h3>Highlight</h3><p>Popular issues rise to the top of the public dashboard.</p></div>
+        <div class="step"><b>4</b><h3>Action</h3><p>Track updates and see whether an issue is resolved.</p></div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <span class="eyebrow">ABOUT SORT IT</span>
+      <h2>Built for people who are tired of being unheard.</h2>
+      <p>Sort-it is a civic-engagement platform. It separates public opinion from verified facts and gives communities a simple place to report, discuss and prioritize everyday problems.</p>
+    </section>
+  </main>
+
+  <footer><strong>Sort It-Ishan Ghosh</strong><span>© 2026 Sort-it • Community Platform</span></footer>
+
+  <div class="modal hidden" id="loginModal">
+    <div class="modal-card">
+      <button class="close" data-close="loginModal">×</button>
+      <h2 id="authTitle">Welcome to Sort-it</h2><p id="authHint">Create an account or log in to keep your profile and votes across devices.</p>
+      <div id="authFields">
+        <input id="authName" placeholder="Your name" autocomplete="name">
+        <input id="authEmail" type="email" placeholder="Email" autocomplete="email">
+        <input id="authPassword" type="password" placeholder="Password (8+ characters)" autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary full" id="authSubmit">Log in</button>
+      <button class="text-btn full" id="authSwitch">Create a new account</button>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
